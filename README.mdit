@@ -1,0 +1,12 @@
+# BcThesis_MARL-Solution
+
+# Verwendung von Framework SCHLABLY https://github.com/tmdt-buw/schlably
+# git-repro herunterladen
+# python 3.10 installieren
+# pip install -r requirements.txt
+
+# Für Auswertungen wurde installiert
+# Anmeldung am Account von Weights&Biases (wandb) mit Github
+# https://wandb.ai/home
+# wandb login
+# API-Key 60c59a0aed79e3c741c386bcbd8f1bce934e0700
