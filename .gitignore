@@ -1,3 +1,7 @@
+# Python cache files
+*.pyc
+*310.pyc
+
 # Environments
 .env
 .venv
@@ -13,7 +17,7 @@ venv.bak/
 .idea
 
 # Weight and Biases
-wandb/*
+*/wandb/*
 
 # Generated data
 ../data/*
@@ -96,3 +100,4 @@ wandb/*
 !../config/testing/dqn/schema.json
 !../config/testing/ppo/schema.json
 !../config/testing/ppo_masked/schema.json
+
