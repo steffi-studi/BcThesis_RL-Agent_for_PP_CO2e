@@ -55,6 +55,11 @@ class Env(gym.Env):
         self.tool_occupancies: List[List] = [[] for _ in range(self.num_tools)]  # stores tool use intervals
         self.job_task_state: numpy.ndarray = np.zeros(self.num_jobs, dtype=int)
         self.task_job_mapping: dict = {}
+        # STS >>>
+        # Added a CO2 base value for a task, based on its runtime
+        self.co2_consumptions: numpy.ndarray = np.zeros(self.num_all_tasks, dtype=float)
+        self.co2_timesteps: List[List] = config.get('co2_timesteps', [[]])
+        # <<< STS
 
         # initialize info which is not reset
         self.runs: int = -2  # counts runs (episodes/dones).  -1 because reset is called twice before start
@@ -113,6 +118,10 @@ class Env(gym.Env):
         self.action_history = []
         self.executed_job_history = []
         self.reward_history = []
+        # STS >>>
+        # Added a CO2 base value for a task, based on its runtime
+        self.co2_consumptions = np.zeros(self.num_all_tasks, dtype=float)
+        # <<< STS
 
         # clear episode rewards after all training data has passed once. Stores info across runs.
         if self.data_idx == 0:
@@ -353,7 +362,19 @@ class Env(gym.Env):
         task.started = start_time
         task.finished = end_time
         task.selected_machine = machine_id
+        task.energy_co2_consumption = Env.calculate_co2_consumption(task)
+        #task.co2_consumption = calculate_co2_consumption(task)
         task.done = True
+
+    def calculate_co2_consumption(self, task: Task) -> float:
+        """
+        Calculates the CO2 consumption for each task depending on the timesteps
+        """
+        co2_per_timestep = task.energy_runtime / task.runtime
+        self.co2_timesteps
+        co2_consumption = 1.0
+
+        return co2_consumption
 
     def compute_reward(self) -> Any:
         """
@@ -371,6 +392,9 @@ class Env(gym.Env):
             reward = self.sparse_makespan_reward()
         elif self.reward_strategy == 'mr2_reward':
             reward = self.mr2_reward()
+        elif self.reward_strategy == 'co2_dense_makespan_reward':
+            reward = self.makespan - self.get_makespan()
+            self.makespan = self.get_makespan()
         else:
             raise NotImplementedError(f'The reward strategy {self.reward_strategy} has not been implemented.')
 

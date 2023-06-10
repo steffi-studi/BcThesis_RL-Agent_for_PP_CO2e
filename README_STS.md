@@ -31,3 +31,19 @@ python -m src.data_generator.instance_factory -fp data_generation/fjssp/config_j
 
 ## Start training
 python -m src.agents.train -fp training/dqn/config_job8_task2_tools0.yaml
+
+## Analyse generated data
+
+`python`<br>
+`import pickle`<br>
+`fId = open(r'D:\Projekte\StudiMaus\BcThesis_RL-Agent\GIT-Repo\Github_StudiMaus\schlably\BcThesis_MARL-Solution-main\data\instances\fjssp\config_job8_task2_tools0.pkl', 'rb')`<br>
+`genedData = pickle.load(fId)`<br>
+`firstTask = genedData[0][0]`<br>
+``<br>
+``<br>
+``<br>
+``<br>
+``<br>
+``<br>
+``<br>
+``<br>

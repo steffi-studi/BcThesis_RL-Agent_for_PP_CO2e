@@ -19,8 +19,8 @@ num_tools: 0
 # (O) [list[int]] Duration of tasks are sampled uniformly from this list
 runtimes: [2, 4, 6, 8, 10]
 # (R) [int] Number of instances (instances of the scheduling problem) to be generated
-num_instances: 1000
+num_instances: 16 # 1000
 # (O) [int] Number of parallel processes used to calculate the instances
-num_processes: 16
+num_processes: 8
 # (O) [bool] Save the generated data in a file
 write_to_file: True

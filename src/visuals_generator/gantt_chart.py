@@ -142,7 +142,14 @@ class GanttChartPlotter:
                                 (start_time + 0.1, y_axes + 7.5))
                 pyplot.annotate(f'J {task.job_index} | T {task.task_index + 1} |', (start_time + 0.1, y_axes + 4.3),
                                 fontsize=15)
-                pyplot.annotate(f'L: {i}  D:{task.deadline}', (start_time + 0.1, y_axes + 0.5))
+#                pyplot.annotate(f'L: {i}  D:{task.deadline}', (start_time + 0.1, y_axes + 0.5))
+                # STS >>>
+                # Added CO2 base value visualization
+                pyplot.annotate(f'R: {task.runtime}  D:{task.deadline}',
+                                (start_time + 0.1, y_axes + 1.25))
+                pyplot.annotate(f'CO2r:{task.energy_runtime} CO2c:{task.energy_co2_consumption}',
+                                (start_time + 0.1, y_axes + 0.5))
+                # <<< STS
 
         return fig, gnt
 
