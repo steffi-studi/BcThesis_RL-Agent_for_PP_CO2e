@@ -1,6 +1,9 @@
 # Python cache files
-*.pyc
-*310.pyc
+__pycache__/
+*.py[cod]
+
+# Ignore pickle files
+*.pkl
 
 # Environments
 .env
