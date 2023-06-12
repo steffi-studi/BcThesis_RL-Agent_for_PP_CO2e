@@ -110,7 +110,7 @@ class ConfigHandler:
         """
         Initializes the loading of a config
 
-        :param config_file_path: Relative path to a config file (e.g. training/dqn/config_job3_task4_tools0.yaml) which
+        :param config_file_path: Relative path to a config file (e.g. training/dqn/config_job40_task1_tools0.yaml) which
             was entered to the terminal
         :param check_against_schema: Checking against schema is activated per default (True), can be deactivated
             by setting to False

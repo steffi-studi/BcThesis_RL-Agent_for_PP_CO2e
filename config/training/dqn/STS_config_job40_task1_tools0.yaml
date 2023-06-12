@@ -5,10 +5,10 @@
 # (R)   [string]  RL algorithm you want to use - This template is for dqn
 algorithm: dqn
 # (R)   [string]  Path to the file with generated data that to be used for training
-instances_file: fjssp/config_job8_task2_tools0.pkl
+instances_file: fjssp/config_job40_task1_tools0.pkl
 # (O)   [string]  The finished model is saved under this name. Alternatively set to <automatic>, then it will be
                   # replaced with the current DayMonthYearHourMinute
-saved_model_name: 8x2_fjssp_dqn_agent
+saved_model_name: 40x1_fjssp_dqn_agent
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 0
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
@@ -17,13 +17,13 @@ seed: 0
 overwrite_split_seed: False
 # (R)   [string]  Set an individual description that you can identify this training run  more easily later on.
                   # This will be used in "weights and biases" as well
-config_description: tasks_8x2
+config_description: tasks_40x1
 # (O)   [string]  Set a directory where you want to save the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]
 wandb_mode: 2
 # (O)   [string]  Set a wandb project where you want to upload all wandb logs
-wandb_project: fjssp_jobs8_tasks2
+wandb_project: fjssp_jobs40_tasks1
 
 # --- dqn parameter ---
 # (O)   [int]     Size of the memory buffer = max number of rollouts that stored before the oldest are deleted
@@ -80,7 +80,7 @@ log_interval: 10
 # (O)   [bool]    All initial task instances are shuffled before being returned to the agent as observation
 shuffle: False
 # (O)   [str]     The reward strategy determines, how the reward is computed. Default is 'dense_makespan_reward'
-reward_strategy: co2_dense_makespan_reward # dense_makespan_reward
+reward_strategy:  dense_makespan_reward
 # (O)   [int]     The reward scale is a float by which the reward is multiplied to increase/decrease the reward signal
                   # strength
 reward_scale: 1
