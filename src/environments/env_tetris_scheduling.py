@@ -362,10 +362,11 @@ class Env(gym.Env):
         task.started = start_time
         task.finished = end_time
         task.selected_machine = machine_id
-        task.energy_co2_consumption = Env.calculate_co2_consumption(task)
+        #task.energy_co2_consumption = Env.calculate_co2_consumption(task)
         #task.co2_consumption = calculate_co2_consumption(task)
         task.done = True
 
+    # STS
     def calculate_co2_consumption(self, task: Task) -> float:
         """
         Calculates the CO2 consumption for each task depending on the timesteps
