@@ -17,7 +17,7 @@ co2_consumption = 0.0
 co2_per_timestep = energy_runtime / runtime
 
 co2_timeline = np.array(co2_timesteps)
-# Build teh timeline
+# Build the timeline
 for idx in np.arange(1, end_time_phase):
     co2_timeline = np.append(co2_timeline, np.add(co2_timesteps, [last_co2timestep*idx, 0]), axis=0)
 

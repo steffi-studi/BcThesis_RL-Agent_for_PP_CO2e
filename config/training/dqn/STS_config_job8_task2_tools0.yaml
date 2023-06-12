@@ -95,7 +95,7 @@ co2_timesteps: [[6, 90], [18, 30], [24, 60]]
 
 # --- benchmarking
 # (R)   List[str] List of all heuristics and algorithms against which to benchmark
-test_heuristics: ['rand', 'EDD', 'SPT', 'MTR', 'LTR']
+test_heuristics: []
 # (O)   [str]     Metric name in the final evaluation table which summarizes the training success best. See
                   # EvaluationHandler.evaluate_test() in utils.evaluations for suitable metrics or add one.
                   # In a wandb hyperparameter sweep this will be usable as objective metric.

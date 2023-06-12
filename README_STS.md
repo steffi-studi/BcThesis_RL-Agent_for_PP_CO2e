@@ -24,9 +24,9 @@ Zugangscode: 60c59a0aed79e3c741c386bcbd8f1bce934e0700
 `>>> torch.cuda.current_device()`<br>
 `0`<br>
 `>>> torch.cuda.device(0)`<br>
-`<torch.cuda.device object at 0x0000016DFC61FA60>`<br>
+`<torch.cuda.device object at 0x0000024AB8264D00>`<br>
 `>>> torch.cuda.get_device_name(0)`<br>
-`'NVIDIA GeForce RTX 3070 Laptop GPU'`<br>
+`'GeForce GTX 1050'`<br>
 
 
 ## Start data_generator
