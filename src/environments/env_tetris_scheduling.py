@@ -362,18 +362,46 @@ class Env(gym.Env):
         task.started = start_time
         task.finished = end_time
         task.selected_machine = machine_id
-        #task.energy_co2_consumption = Env.calculate_co2_consumption(task)
+        task.energy_co2_consumption = Env.calculate_co2_consumption(self, task)
         #task.co2_consumption = calculate_co2_consumption(task)
         task.done = True
 
     # STS
-    def calculate_co2_consumption(self, task: Task) -> float:
+    def calculate_co2_consumption(self, taskco2: Task) -> float:
         """
         Calculates the CO2 consumption for each task depending on the timesteps
         """
-        co2_per_timestep = task.energy_runtime / task.runtime
-        self.co2_timesteps
-        co2_consumption = 1.0
+
+        if len(self.co2_timesteps[0]) == 0:
+            return 0.0
+        last_co2timestep = self.co2_timesteps[len(self.co2_timesteps) - 1][0]
+        end_time_phase = taskco2.finished // last_co2timestep + 1
+
+        co2_consumption = 0.0
+
+        co2_per_timestep = taskco2.energy_runtime / taskco2.runtime
+
+        co2_timeline = np.array(self.co2_timesteps)
+        # Build teh timeline
+        for idx in np.arange(1, end_time_phase):
+            co2_timeline = np.append(co2_timeline, np.add(self.co2_timesteps, [last_co2timestep * idx, 0]), axis=0)
+
+        start_idx = np.where(co2_timeline[:, 0] > taskco2.started)[0][0]
+        try:
+            end_idx = np.where(co2_timeline[:, 0] <= taskco2.finished)[0][-1] + 2
+        except:
+            #print(taskco2)
+            end_idx = start_idx+1
+        co2_timeline_slice = co2_timeline[start_idx:end_idx]
+
+        co2_timeline_slice = np.concatenate(([co2_timeline_slice[0]], co2_timeline_slice), axis=0)
+        co2_timeline_slice[0][0] = taskco2.started
+        co2_timeline_slice[-1][0] = taskco2.finished
+
+        diffTime1 = np.diff(co2_timeline_slice[:, 0])
+        diffTime = np.concatenate(([0], diffTime1))
+        co2_csp_periods = np.multiply(diffTime, co2_timeline_slice[:, 1] / 100) * co2_per_timestep
+        co2_consumption = np.sum(co2_csp_periods)
 
         return co2_consumption
 
