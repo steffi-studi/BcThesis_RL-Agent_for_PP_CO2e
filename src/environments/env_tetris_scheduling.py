@@ -422,8 +422,10 @@ class Env(gym.Env):
         elif self.reward_strategy == 'mr2_reward':
             reward = self.mr2_reward()
         elif self.reward_strategy == 'co2_dense_makespan_reward':
-            reward = self.makespan - self.get_makespan()
+            reward_makespan = self.makespan - self.get_makespan()
             self.makespan = self.get_makespan()
+            reward_co2 = self.get_co2reward()
+            reward = reward_makespan - reward_co2
         else:
             raise NotImplementedError(f'The reward strategy {self.reward_strategy} has not been implemented.')
 
@@ -521,6 +523,12 @@ class Env(gym.Env):
         Returns the current makespan (the time the latest of all scheduled tasks finishes)
         """
         return np.max(self.ends_of_machine_occupancies)
+
+    def get_co2reward(self):
+        co2_ratio = 0
+        for i, task in enumerate(self.tasks):
+            co2_ratio += task.energy_co2_consumption / task.energy_co2_consumption_max * 100
+        return co2_ratio
 
     def log_intermediate_step(self) -> None:
         """
