@@ -1,6 +1,7 @@
 """This file provides the Task class."""
 # Standard package import
 from typing import List
+import numpy as np
 
 
 class Task:
@@ -57,14 +58,14 @@ class Task:
 
         # STS >>>
         # Added a CO2 base value for a task, based on its runtime
-        self.energy_runtime = runtime * 3
+        self.energy_consumption = runtime * 3.0 * np.random.randint(80, 120)/100
         # if not tools:
         #     self.energy_runtime = runtime * 3
         # else:
         #     self.energy_runtime = runtime * runtime + runtime // 2
 
         # This represents the final CO2 consumption, depending on started and finished
-        self.energy_co2_consumption = self.energy_runtime * 1.0
+        self.energy_co2_consumption = self.energy_consumption * 1.0
         self.energy_co2_consumption_max = self.energy_co2_consumption
         # <<< STS
 

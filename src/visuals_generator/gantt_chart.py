@@ -147,7 +147,7 @@ class GanttChartPlotter:
                 # Added CO2 base value visualization
                 pyplot.annotate(f'R: {task.runtime}  D:{task.deadline}',
                                 (start_time + 0.1, y_axes + 1.25))
-                pyplot.annotate(f'CO2r:{task.energy_runtime} CO2c:{task.energy_co2_consumption}',
+                pyplot.annotate(f'E:{task.energy_consumption} CO2:{task.energy_co2_consumption}',
                                 (start_time + 0.1, y_axes + 0.5))
                 # <<< STS
 
