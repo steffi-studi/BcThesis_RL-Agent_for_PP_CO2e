@@ -379,7 +379,7 @@ class Env(gym.Env):
 
         co2_consumption = 0.0
 
-        co2_per_timestep = taskco2.energy_runtime / taskco2.runtime
+        co2_per_timestep = taskco2.energy_consumption / taskco2.runtime
 
         co2_timeline = np.array(self.co2_timesteps)
         # Build teh timeline
@@ -401,7 +401,7 @@ class Env(gym.Env):
         diffTime1 = np.diff(co2_timeline_slice[:, 0])
         diffTime = np.concatenate(([0], diffTime1))
         co2_csp_periods = np.multiply(diffTime, co2_timeline_slice[:, 1] / 100) * co2_per_timestep
-        co2_consumption = np.sum(co2_csp_periods)
+        co2_consumption = np.around(np.sum(co2_csp_periods), decimals=1)
 
         return co2_consumption
 
