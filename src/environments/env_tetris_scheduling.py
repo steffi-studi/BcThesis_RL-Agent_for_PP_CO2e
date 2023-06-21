@@ -400,7 +400,7 @@ class Env(gym.Env):
 
         diffTime1 = np.diff(co2_timeline_slice[:, 0])
         diffTime = np.concatenate(([0], diffTime1))
-        co2_csp_periods = np.multiply(diffTime, co2_timeline_slice[:, 1] / 100) * co2_per_timestep
+        co2_csp_periods = np.multiply(diffTime, co2_timeline_slice[:, 1] / 1000) * co2_per_timestep
         co2_consumption = np.around(np.sum(co2_csp_periods), decimals=1)
 
         return co2_consumption
@@ -425,7 +425,7 @@ class Env(gym.Env):
             reward_makespan = self.makespan - self.get_makespan()
             self.makespan = self.get_makespan()
             reward_co2 = self.get_co2reward()
-            reward = reward_makespan - reward_co2
+            reward = reward_makespan + reward_co2
         else:
             raise NotImplementedError(f'The reward strategy {self.reward_strategy} has not been implemented.')
 
@@ -527,8 +527,8 @@ class Env(gym.Env):
     def get_co2reward(self):
         co2_ratio = 0
         for i, task in enumerate(self.tasks):
-            co2_ratio += task.energy_co2_consumption / task.energy_co2_consumption_max * 100
-        return co2_ratio
+            co2_ratio += task.energy_co2_consumption
+        return co2_ratio*-1.0
 
     def log_intermediate_step(self) -> None:
         """
