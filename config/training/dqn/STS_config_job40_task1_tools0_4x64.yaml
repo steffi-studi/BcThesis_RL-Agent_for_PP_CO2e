@@ -80,7 +80,7 @@ log_interval: 10
 # (O)   [bool]    All initial task instances are shuffled before being returned to the agent as observation
 shuffle: False
 # (O)   [str]     The reward strategy determines, how the reward is computed. Default is 'dense_makespan_reward'
-reward_strategy:  dense_makespan_reward
+reward_strategy:  co2_dense_makespan_reward
 # (O)   [int]     The reward scale is a float by which the reward is multiplied to increase/decrease the reward signal
                   # strength
 reward_scale: 1
