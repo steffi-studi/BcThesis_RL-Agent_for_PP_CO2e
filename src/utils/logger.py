@@ -29,7 +29,7 @@ import PIL.Image
 
 # Constants
 LOG_MODE_DEFAULT: int = 0
-WANDB_PROJECT: str = 'fjssp_jobs8_tasks2'
+WANDB_PROJECT: str = 'fjssp_jobs40_tasks1'
 WANDB_ENTITY: str = '01stst1bif'
 WANDB_DIRECTORY: Path = Path(__file__).parent.parent.parent / 'data'
 WANDB_TABLE_COLUMNS: List[str] = ["Agent", "Reward", "Makespan", "Tardiness", "Ganttchart"]
