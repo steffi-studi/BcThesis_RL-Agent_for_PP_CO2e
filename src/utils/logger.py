@@ -32,7 +32,9 @@ LOG_MODE_DEFAULT: int = 0
 WANDB_PROJECT: str = 'fjssp_jobs40_tasks1'
 WANDB_ENTITY: str = '01stst1bif'
 WANDB_DIRECTORY: Path = Path(__file__).parent.parent.parent / 'data'
-WANDB_TABLE_COLUMNS: List[str] = ["Agent", "Reward", "Makespan", "Tardiness", "Ganttchart"]
+
+WANDB_TABLE_COLUMNS: List[str] = ["Agent", "Reward", "Makespan", "Tardiness", "CO2_Consumption", "Ganttchart"]
+# Wird nur für Vergleiche mit anderen Solvern etc. verwendet
 WANDB_FINAL_EVALUATION_TABLE_COLUMNS: List[str] = ['Agent', 'Mean Reward', 'Mean Tardiness', 'Tardiness Max',
                                                    'Mean Makespan', 'Makespan STD', 'Tardiness STD', 'Gap To Solver']
 

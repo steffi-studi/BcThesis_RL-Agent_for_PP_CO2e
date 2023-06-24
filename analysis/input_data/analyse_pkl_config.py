@@ -11,11 +11,14 @@ fId.close()
 
 fId = open(r'{}\{}.csv'.format(fileP, fileN), 'w')
 idx = 0
+
+fId.write(f"Instance\tTask\tJob\tMachines\tTools"
           f"\tdeadline\tdone\truntime"
           f"\tstarted\tfinished\tselected_machine"
           f"\tenergy_co2_consumption\tenergy_co2_consumption_max\tenergy_runtime"
           f"\n"
           )
+
 for instance in genedData:
     for myTask in instance:
         # print(myTask.str_info())

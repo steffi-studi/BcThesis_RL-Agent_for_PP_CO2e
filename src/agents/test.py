@@ -144,7 +144,7 @@ def log_results(plot_logger: Logger, inter_test_idx: Union[int, None], heuristic
 
     # get recent measures for the table
     measures = {'total_reward': handler.rewards[-1], 'makespan': handler.makespan[-1],
-                'tardiness': handler.tardiness[-1]}
+                'tardiness': handler.tardiness[-1], 'co2_consumption': handler.co2_consumptions[-1]}
 
     gantt_chart = env.render(mode="image")
     # Log chart as table

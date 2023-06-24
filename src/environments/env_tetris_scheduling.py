@@ -56,9 +56,12 @@ class Env(gym.Env):
         self.job_task_state: numpy.ndarray = np.zeros(self.num_jobs, dtype=int)
         self.task_job_mapping: dict = {}
         # STS >>>
-        # Added a CO2 base value for a task, based on its runtime
+        # Added a CO2 base value for each task
         self.co2_consumptions: numpy.ndarray = np.zeros(self.num_all_tasks, dtype=float)
         self.co2_timesteps: List[List] = config.get('co2_timesteps', [[]])
+        self.co2_costs: float = config.get('co2_costs', 1.0)
+        self.tardiness_costs: float = config.get('tardiness_costs', 1.0)
+        self.makespan_costs: float = config.get('makespan_costs', 1.0)
         # <<< STS
 
         # initialize info which is not reset
@@ -80,6 +83,10 @@ class Env(gym.Env):
         self.logging_makespans: List = []
         self.logging_rewards: List = []
         self.logging_tardinesses: List = []
+        # STS >>>
+        # Added CO2 logging
+        self.logging_co2_consumptions: List = []
+        # <<< STS
 
         # action_space: idx_job
         self.action_space: spaces.Discrete = spaces.Discrete(self.num_jobs)
@@ -92,6 +99,10 @@ class Env(gym.Env):
         self.observation_space: spaces.Box = spaces.Box(low=0, high=1, shape=observation_shape)
 
         # reward parameters
+        # STS >>>
+        # Added reward_strategy_weight
+        self.reward_strategy_weight = config.get('reward_strategy_weight', {'co2': 1, 'makespan': 1, 'tardniess': 1})
+        # <<< STS
         self.reward_strategy = config.get('reward_strategy', 'dense_makespan_reward')
         self.reward_scale = config.get('reward_scale', 1)
         self.mr2_reward_buffer: List[List] = [[] for _ in range(len(data))]  # needed for m2r reward only
@@ -363,7 +374,7 @@ class Env(gym.Env):
         task.finished = end_time
         task.selected_machine = machine_id
         task.energy_co2_consumption = Env.calculate_co2_consumption(self, task)
-        #task.co2_consumption = calculate_co2_consumption(task)
+        # task.co2_consumption = calculate_co2_consumption(task)
         task.done = True
 
     # STS
@@ -390,8 +401,8 @@ class Env(gym.Env):
         try:
             end_idx = np.where(co2_timeline[:, 0] <= taskco2.finished)[0][-1] + 2
         except:
-            #print(taskco2)
-            end_idx = start_idx+1
+            # print(taskco2)
+            end_idx = start_idx + 1
         co2_timeline_slice = co2_timeline[start_idx:end_idx]
 
         co2_timeline_slice = np.concatenate(([co2_timeline_slice[0]], co2_timeline_slice), axis=0)
@@ -403,6 +414,7 @@ class Env(gym.Env):
         co2_csp_periods = np.multiply(diffTime, co2_timeline_slice[:, 1] / 1000) * co2_per_timestep
         co2_consumption = np.around(np.sum(co2_csp_periods), decimals=1)
 
+        self.co2_consumptions[taskco2.job_index] = co2_consumption
         return co2_consumption
 
     def compute_reward(self) -> Any:
@@ -424,8 +436,16 @@ class Env(gym.Env):
         elif self.reward_strategy == 'co2_dense_makespan_reward':
             reward_makespan = self.makespan - self.get_makespan()
             self.makespan = self.get_makespan()
-            reward_co2 = self.get_co2reward()
+            reward_co2 = self.get_co2() * -1.0
             reward = reward_makespan + reward_co2
+        elif self.reward_strategy == 'co2_makespan_tardiness':
+            reward_makespan = (self.makespan - self.get_makespan()) * self.makespan_costs
+            self.makespan = self.get_makespan()
+            reward_co2 = self.get_co2() * -1.0 * self.co2_costs
+            reward_tardiness = self.get_tardiness() * -1.0 * self.tardiness_costs
+            reward = (reward_co2 * self.reward_strategy_weight['co2']) \
+                     + (reward_makespan * self.reward_strategy_weight['makespan']) \
+                     + (reward_tardiness * self.reward_strategy_weight['tardniess'])
         else:
             raise NotImplementedError(f'The reward strategy {self.reward_strategy} has not been implemented.')
 
@@ -524,11 +544,17 @@ class Env(gym.Env):
         """
         return np.max(self.ends_of_machine_occupancies)
 
-    def get_co2reward(self):
-        co2_ratio = 0
-        for i, task in enumerate(self.tasks):
-            co2_ratio += task.energy_co2_consumption
-        return co2_ratio*-1.0
+    def get_co2(self):
+        """
+        Returns the current overall co2 consumption
+        """
+        return np.sum(self.co2_consumptions)
+
+    def get_tardiness(self):
+        """
+        Returns the current overall tardiness
+        """
+        return np.sum(self.tardiness)
 
     def log_intermediate_step(self) -> None:
         """
@@ -540,11 +566,14 @@ class Env(gym.Env):
         if self.runs >= self.log_interval:
             print('-' * 110, f'\n{self.runs} instances played! Last instance seen: {self.data_idx}/{len(self.data)}')
             print(f'Average performance since last log: mean reward={np.around(np.mean(self.logging_rewards), 2)}, ' \
-                     f'mean makespan={np.around(np.mean(self.logging_makespans), 2)}, ' \
-                     f'mean tardiness={np.around(np.mean(self.logging_tardinesses), 2)}')
+                  f'mean makespan={np.around(np.mean(self.logging_makespans), 2)}, ' \
+                  f'mean tardiness={np.around(np.mean(self.logging_tardinesses), 2)}, ' \
+                  f'mean co2e={np.around(np.mean(self.logging_co2_consumptions), 2)}' \
+                  )
             self.logging_rewards.clear()
             self.logging_makespans.clear()
             self.logging_tardinesses.clear()
+            self.logging_co2_consumptions.clear()
 
     def close(self):
         """

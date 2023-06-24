@@ -128,8 +128,8 @@ def generate_deadlines(instances: List[List[Task]], instance_with_dead_lines: Li
         make_span.append(env.get_makespan())
         # actions.sort()
         for task_j, task in enumerate(tasks):
-            task.deadline = task.finished
-            task._deadline = task.finished
+            task.deadline = task.finished + 2 + np.random.randint(0, task.runtime)
+            task._deadline = task.deadline
             task.runtime = runtimes[task_j]
             task._run_time_left = runtimes[task_j]
             task.running = 0

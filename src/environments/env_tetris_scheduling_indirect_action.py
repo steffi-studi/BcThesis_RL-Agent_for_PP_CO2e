@@ -91,6 +91,7 @@ class IndirectActionEnv(Env):
             episode_reward_sum = np.sum(self.reward_history)
             makespan = self.get_makespan()
             tardiness = self.calculate_tardiness()
+            co2_consumption = self.get_co2()
 
             self.episodes_makespans.append(self.get_makespan())
             self.episodes_rewards.append(np.mean(self.reward_history))
@@ -98,6 +99,7 @@ class IndirectActionEnv(Env):
             self.logging_rewards.append(episode_reward_sum)
             self.logging_makespans.append(makespan)
             self.logging_tardinesses.append(tardiness)
+            self.logging_co2_consumptions.append(co2_consumption)
 
             if self.runs % self.log_interval == 0:
                 self.log_intermediate_step()

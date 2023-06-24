@@ -445,11 +445,13 @@ class DQN:
                 mean_training_reward = np.mean(self.env.episodes_rewards)
                 mean_training_makespan = np.mean(self.env.episodes_makespans)
                 mean_training_tardiness = np.mean(self.env.tardiness)
+                mean_training_co2 = np.mean(self.env.co2_consumptions)
                 self.logger.record(
                     {
                         'results_on_train_dataset/mean_reward': mean_training_reward,
                         'results_on_train_dataset/mean_makespan': mean_training_makespan,
-                        'results_on_train_dataset/mean_tardiness': mean_training_tardiness
+                        'results_on_train_dataset/mean_tardiness': mean_training_tardiness,
+                        'results_on_train_dataset/mean_co2e': mean_training_co2
                     }
                 )
                 self.logger.dump()

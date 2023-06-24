@@ -20,6 +20,8 @@ class EvaluationHandler:
         self.makespan = []  # number of steps required to end all jobs
         self.actions_list = []
         self.tasks_list = []
+        self.co2_consumptions = []
+        self.co2_consumptions_max = []
 
     def record_environment_episode(self, env, total_reward) -> None:
         """
@@ -38,6 +40,8 @@ class EvaluationHandler:
         self.tardiness_max.append(max(env.tardiness))
         self.tasks_list.append(env.tasks)
         self.actions_list.append(env.action_history)
+        self.co2_consumptions.append(sum(env.co2_consumptions))
+        self.co2_consumptions_max.append(max(env.co2_consumptions))
 
     def update_episode_solved_with_solver(self, env) -> None:
         """
@@ -64,7 +68,7 @@ class EvaluationHandler:
         :return: Dictionary with all specified evaluation metrics
 
         """
-        rewards, tardiness = np.asarray(self.rewards), self.tardiness
+        rewards, tardiness, co2_consumptions = np.asarray(self.rewards), self.tardiness, self.co2_consumptions
         evaluation_results = {}
         evaluation_results['rew_mean'] = np.mean(rewards)
         evaluation_results['rew_std'] = np.std(rewards)
@@ -74,6 +78,9 @@ class EvaluationHandler:
         evaluation_results['tardiness_mean'] = np.mean(tardiness)
         evaluation_results['tardiness_std'] = np.std(tardiness)
         evaluation_results['tardiness_max_mean'] = np.mean(self.tardiness_max)
+        evaluation_results['co2_consumptions_mean'] = np.mean(co2_consumptions)
+        evaluation_results['co2_consumptions_std'] = np.std(co2_consumptions)
+        evaluation_results['co2_consumptions_max_mean'] = np.mean(self.co2_consumptions_max)
         evaluation_results['makespan_mean'] = np.mean(self.makespan)
         evaluation_results['rew_worst_quantile_border'] = np.quantile(rewards, 0.1)
         evaluation_results['rew_cvar'] = rewards[rewards <= evaluation_results['rew_worst_quantile_border']].mean()

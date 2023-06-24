@@ -71,11 +71,13 @@ class IntermediateTest:
             rwd_mean = evaluation_results['rew_mean']
             tardiness_mean = evaluation_results['tardiness_mean']
             makespan_mean = evaluation_results['makespan_mean']
+            co2_consumptions_mean = evaluation_results['co2_consumptions_mean']
 
             # log results
             self.logger.record(
                 {
                     'interm_test/mean_reward': rwd_mean,
+                    'interm_test/co2_consumptions_mean': co2_consumptions_mean,
                     'interm_test/mean_tardiness': tardiness_mean,
                     'interm_test/mean_makespan': makespan_mean
                 }

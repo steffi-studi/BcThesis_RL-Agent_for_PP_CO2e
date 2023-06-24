@@ -80,16 +80,21 @@ log_interval: 10
 # (O)   [bool]    All initial task instances are shuffled before being returned to the agent as observation
 shuffle: False
 # (O)   [str]     The reward strategy determines, how the reward is computed. Default is 'dense_makespan_reward'
-reward_strategy:  co2_dense_makespan_reward
+reward_strategy:  co2_makespan_tardiness # co2_dense_makespan_reward, co2_makespan_tardiness
 # (O)   [int]     The reward scale is a float by which the reward is multiplied to increase/decrease the reward signal
                   # strength
-reward_scale: 1
+reward_scale:     1
+
 # STS >>>
+reward_strategy_weight: {'co2': 1, 'makespan': 0, 'tardniess': 1}
 # (O) List[List[int]] percentile CO2 consumption over time step [[percent, up_to_timestep]]
                   # first value is the last timestep of the bad CO2 is used
                   # second value is the bad CO2 value in percent
                   # After the last timestep, it will start with the first ( time step 25 will be weighted with 90% CO2)
-co2_timesteps: [[5, 495.6], [8, 366.5], [12, 279.4],[18, 549.7],[24, 621.3],[29, 645.8],[33, 465.1],[37, 366.4],[42, 617.3],[48, 723.4]]
+co2_timesteps:    [[5, 495.6], [8, 366.5], [12, 279.4],[18, 549.7],[24, 621.3],[29, 645.8],[33, 465.1],[37, 366.4],[42, 617.3],[48, 723.4]]
+co2_costs:        0.03 # €/kg
+tardiness_costs:  0.5 # €/timestep
+# makespan_costs:   1.0 # €/gapstep
 # <<< STS
 
 
