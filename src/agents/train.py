@@ -125,7 +125,7 @@ def main(config_file_name: dict = None, external_config: dict = None) -> None:
 
     ## STS Auskommentiert da kein Vergleich mit Solver benötigt wird
     # # evaluate results
-    # final_evaluation(config=config, data_test=test_data, logger=logger)
+    final_evaluation(config=config, data_test=test_data, logger=logger)
 
 
 def get_perser_args():
