@@ -8,7 +8,7 @@ algorithm: dqn
 instances_file: fjssp/config_j20_t1_tl0_CO2.pkl
 # (O)   [string]  The finished model is saved under this name. Alternatively set to <automatic>, then it will be
                   # replaced with the current DayMonthYearHourMinute
-saved_model_name: 20_fjssp_dqn_agent_32-64-64_100
+saved_model_name: 20_fjssp_dqn_agent_32-64-64_1050
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 0
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
@@ -17,7 +17,7 @@ seed: 0
 overwrite_split_seed: False
 # (R)   [string]  Set an individual description that you can identify this training run  more easily later on.
                   # This will be used in "weights and biases" as well
-config_description: tasks_20x1_32-64-64_100
+config_description: tasks_20x1_32-64-64_1050
 # (O)   [string]  Set a directory where you want to save the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]
@@ -88,7 +88,7 @@ reward_scale:     1
 # STS >>>
 # this is a factor which is set for each parameter in the calculation for the reward
 # 0 - parameter is not considered
-reward_strategy_weight: {'co2': 1, 'makespan': 0, 'tardniess': 0}
+reward_strategy_weight: {'co2': 1, 'makespan': 0, 'tardniess': 50}
 # (O) List[List[int]] CO2e consumption per timestep, [[CO2e/kg, up_to_timestep]]
                   # After the last timestep, it will start with the first
                   # every timestep is 1 hour, day 1 = 0 to 23 timesteps, day 2 = 24 to 47, and so on
