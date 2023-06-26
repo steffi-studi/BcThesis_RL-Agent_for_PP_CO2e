@@ -86,7 +86,7 @@ reward_strategy:  co2_makespan_tardiness # co2_dense_makespan_reward, co2_makesp
 reward_scale:     1
 
 # STS >>>
-reward_strategy_weight: {'co2': 1, 'makespan': 0, 'tardniess': 0}
+reward_strategy_weight: {'co2': 1, 'makespan': 1, 'tardniess': 1}
 # (O) List[List[int]] percentile CO2 consumption over time step [[percent, up_to_timestep]]
                   # first value is the last timestep of the bad CO2 is used
                   # second value is the bad CO2 value in percent
