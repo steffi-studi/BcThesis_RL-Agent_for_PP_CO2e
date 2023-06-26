@@ -57,7 +57,7 @@ class Task:
         self.selected_machine = selected_machine
 
         # STS >>>
-        # Added a CO2 base value for a task, based on its runtime
+        # Added: Calculation of energy consumption in kWh
         self.energy_consumption = runtime * 3.0 * np.random.randint(80, 120)/100
         # if not tools:
         #     self.energy_runtime = runtime * 3

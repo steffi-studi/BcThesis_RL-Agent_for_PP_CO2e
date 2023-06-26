@@ -2,7 +2,7 @@ import pickle
 
 
 fileP = r'C:\Github\BcThesis_MARL-Solution\data\instances\fjssp'
-fileN = r'config_job40_task1_tools0'
+fileN = r'config_j60_t1_tl0_CO2'
 
 fId = open(r'{}\{}.pkl'.format(fileP, fileN), 'rb')
 genedData = pickle.load(fId)
@@ -15,7 +15,7 @@ idx = 0
 fId.write(f"Instance\tTask\tJob\tMachines\tTools"
           f"\tdeadline\tdone\truntime"
           f"\tstarted\tfinished\tselected_machine"
-          f"\tenergy_co2_consumption\tenergy_co2_consumption_max\tenergy_runtime"
+          f"\tco2e_consumption\tenergy_co2_consumption_max\tenergy_consumption"
           f"\n"
           )
 
