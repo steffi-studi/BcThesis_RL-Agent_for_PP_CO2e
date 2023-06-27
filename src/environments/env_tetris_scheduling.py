@@ -438,6 +438,7 @@ class Env(gym.Env):
             self.makespan = self.get_makespan()
             reward_co2 = self.get_co2() * -1.0
             reward = reward_makespan + reward_co2
+    # >>> STS reward over all 3 parameters, adjustable with weights
         elif self.reward_strategy == 'co2_makespan_tardiness':
             reward_makespan = (self.makespan - self.get_makespan()) * self.makespan_costs
             self.makespan = self.get_makespan()
@@ -446,6 +447,7 @@ class Env(gym.Env):
             reward = (reward_co2 * self.reward_strategy_weight['co2']) \
                      + (reward_makespan * self.reward_strategy_weight['makespan']) \
                      + (reward_tardiness * self.reward_strategy_weight['tardniess'])
+    #<<< STS
         else:
             raise NotImplementedError(f'The reward strategy {self.reward_strategy} has not been implemented.')
 
