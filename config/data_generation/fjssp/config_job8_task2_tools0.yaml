@@ -15,7 +15,7 @@ num_tasks: 1
 # (R) [int] Number of available machines (has to be equal to num_tasks for jssp)
 num_machines: 2
 # (R) [int] Number of available tools to be scheduled
-num_tools: 0
+num_tools: 2
 # (O) [list[int]] Duration of tasks are sampled uniformly from this list
 runtimes: [2, 4, 6, 8, 10]
 # (R) [int] Number of instances (instances of the scheduling problem) to be generated

@@ -225,18 +225,21 @@ def test_model_and_heuristic(config: dict, model, data_test: List[List[Task]], l
     res = test_model(model=model, **test_kwargs)
     results.update({'agent': res})
 
-    # test heuristics
-    for heuristic in config.get('test_heuristics', TEST_HEURISTICS):
-        res = test_model(heuristic_id=heuristic, **test_kwargs)
-        results.update({heuristic: res})
-
-    # test solver and calculate optimality gap
-    res = test_solver(config, data_test, logger)
-    results.update({'solver': res})
-
-    results = EvaluationHandler.add_solver_gap_to_results(results)
-
     return results
+
+    ## STS >>> to reduce data and processing time benchmark is not necessary
+    # # test heuristics
+    # for heuristic in config.get('test_heuristics', TEST_HEURISTICS):
+    #     res = test_model(heuristic_id=heuristic, **test_kwargs)
+    #     results.update({heuristic: res})
+    #
+    # # test solver and calculate optimality gap
+    # res = test_solver(config, data_test, logger)
+    # results.update({'solver': res})
+    #
+    # results = EvaluationHandler.add_solver_gap_to_results(results)
+    #
+    # return results
 
 
 def get_perser_args():
