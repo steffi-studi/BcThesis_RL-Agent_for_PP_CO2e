@@ -8,7 +8,7 @@ algorithm: dqn
 instances_file: fjssp/config_j20_t1_A.pkl
 # (O)   [string]  The finished model is saved under this name. Alternatively set to <automatic>, then it will be
                   # replaced with the current DayMonthYearHourMinute
-saved_model_name: DQN_64-64_config_j20_t1_A_1-0-1_99
+saved_model_name: DQN_64-64_config_j20_t1_A_1-0-1_90
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 0
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
@@ -17,7 +17,7 @@ seed: 0
 overwrite_split_seed: False
 # (R)   [string]  Set an individual description that you can identify this training run  more easily later on.
                   # This will be used in "weights and biases" as well
-config_description: DQN_64-64_config_j20_t1_A_1-0-1_99
+config_description: DQN_64-64_config_j20_t1_A_1-0-1_90
 # (O)   [string]  Set a directory where you want to save the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]
@@ -35,7 +35,7 @@ train_freq: 4
 # (O)   [int]     Number of gradient steps to take in every training
 gradient_steps: 1
 # (O)   [float]   Factor to discount future rewards
-gamma: 0.99
+gamma: 0.90
 # (O)   [int]     Batch size into which the rollout data gets split
 batch_size: 256
 # (O)   [float]   Learning rate for the network updates

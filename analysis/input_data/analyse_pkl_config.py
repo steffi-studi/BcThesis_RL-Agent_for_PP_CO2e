@@ -2,7 +2,7 @@ import pickle
 
 
 fileP = r'C:\Github\BcThesis_MARL-Solution\data\instances\fjssp'
-fileN = r'config_j60_t1_tl0_CO2'
+fileN = r'test_config_j40_t1_C'
 
 fId = open(r'{}\{}.pkl'.format(fileP, fileN), 'rb')
 genedData = pickle.load(fId)

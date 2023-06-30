@@ -27,6 +27,7 @@ from src.data_generator.task import Task
 from src.agents.train_test_utility_functions import get_agent_class_from_config, load_config, load_data
 from src.agents.solver import OrToolSolver
 
+
 # constants
 TEST_HEURISTICS: List[str] = ['rand', 'EDD', 'SPT', 'MTR', 'LTR']
 
