@@ -10,7 +10,7 @@ instances_file: fjssp/config_job8_task2_tools0.pkl
                   # replaced with the current DayMonthYearHourMinute
 saved_model_name: x2_fjssp_dqn_agent
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
-seed: 0
+seed: 101
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
                   # random seed. This is useful for hyperparameter-sweeps with multiple random seeds to keep the same
                   # test instances for comparability. Irrelevant, if the random seed across runs remains the same.

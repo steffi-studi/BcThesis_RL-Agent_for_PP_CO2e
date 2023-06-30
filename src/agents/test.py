@@ -277,7 +277,7 @@ def main(external_config=None):
     logger = Logger(config=config)
     model = get_agent_class_from_config(config=config).load(file=best_model_path, config=config, logger=logger)
     results = test_model_and_heuristic(config=config, model=model, data_test=data,
-                                       plot_ganttchart=parse_args.plot_ganttchart, logger=logger)
+                                       plot_ganttchart=parse_args.plot_ganttchart, logger=logger, log_episode=True)
     print(results)
     plt.show()
 
