@@ -127,6 +127,11 @@ class GanttChartPlotter:
                 # Get task state variables
                 start_time = task.started
                 finish_time = task.finished
+                if task.deadline - task.finished < 0:
+                    edgeColor = 'red'
+                else:
+                    edgeColor = 'black'
+
                 selected_machine = task.selected_machine
                 # Get readable tool indices
                 tools = list(np.where(task.tools)[0])
@@ -135,7 +140,7 @@ class GanttChartPlotter:
                 # Calculate y-position
                 y_axes = 10 * (selected_machine + 2)
                 gnt.broken_barh([(start_time, finish_time - start_time)], (y_axes, 9),
-                                facecolor=color[task.job_index % 15], edgecolor='black')
+                                facecolor=color[task.job_index % 15], edgecolor=edgeColor)
 
                 # Annotate tools, job number, and deadline
                 pyplot.annotate(f'{"T:" + str(tools) + "  " if tools else ""}M:{machine_indices}',
