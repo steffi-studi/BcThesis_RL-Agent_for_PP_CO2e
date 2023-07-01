@@ -15,13 +15,13 @@ reward_strategy: co2_makespan_tardiness
                   # strength
 reward_scale: 1
 # (O)   [string]  Name of the model you want to load for testing
-saved_model_name: DQN_64-64_config_j20_t1_A_1-0-0_99
+saved_model_name: DQN_32-64-32_config_j20_t1_A_1-0-0_99
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 2
 # (R)   [string]  Set an individual description that you can identify this
                   # training run  more easily later on. This will be used in
                   # "weights and biases" as well
-config_description: DQN_64-64_config_j20_t1_A_1-0-0_99
+config_description: DQN_32-64-32_config_j20_t1_A_1-0-0_99
 # (O)   [string]  Set a directory from where you want to load the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]

@@ -280,7 +280,10 @@ def main(external_config=None):
                                        plot_ganttchart=parse_args.plot_ganttchart, logger=logger, log_episode=True)
     print(results)
     plt.show()
+    logger.dump()
 
+    # log evaluation to wandb
+    logger.write_to_wandb_summary(results)
 
 if __name__ == '__main__':
 
