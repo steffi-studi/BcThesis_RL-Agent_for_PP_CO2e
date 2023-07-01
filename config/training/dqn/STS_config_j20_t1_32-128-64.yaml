@@ -5,10 +5,10 @@
 # (R)   [string]  RL algorithm you want to use - This template is for dqn
 algorithm: dqn
 # (R)   [string]  Path to the file with generated data that to be used for training
-instances_file: fjssp/config_j40_t1_tl0_CO2.pkl
+instances_file: fjssp/config_j20_t1_A.pkl
 # (O)   [string]  The finished model is saved under this name. Alternatively set to <automatic>, then it will be
                   # replaced with the current DayMonthYearHourMinute
-saved_model_name: fjssp_j40_t1_CO2_64-128-64_dqn_agent
+saved_model_name: DQN_32-64-32_config_j20_t1_A_1-0-1_99
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 0
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
@@ -17,13 +17,13 @@ seed: 0
 overwrite_split_seed: False
 # (R)   [string]  Set an individual description that you can identify this training run  more easily later on.
                   # This will be used in "weights and biases" as well
-config_description: tasks_40x1
+config_description: DQN_32-64-32_config_j20_t1_A_1-0-1_99
 # (O)   [string]  Set a directory where you want to save the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]
 wandb_mode: 2
 # (O)   [string]  Set a wandb project where you want to upload all wandb logs
-wandb_project: fjssp_j40_t1_CO2_64-128-64
+wandb_project: DQN_32-64-32
 
 # --- dqn parameter ---
 # (O)   [int]     Size of the memory buffer = max number of rollouts that stored before the oldest are deleted
@@ -51,7 +51,7 @@ final_eps: 0.05
 # (O)   [float]   When this percentage of total timesteps is reached, epsilon takes the final_eps value
 fraction_eps: 0.1
 # (O) List[int] List with dimension for the hidden layers (length of list = number of hidden layers) used in the net
-layer:  [ 64, 128, 64 ]
+layer:  [32, 64, 64 ]
 # (O) [str] String for the activation function of the net
             # Note, the activation function has to be from the torch.nn module (e.g. ReLU)
 activation: 'ReLU'
@@ -80,16 +80,23 @@ log_interval: 10
 # (O)   [bool]    All initial task instances are shuffled before being returned to the agent as observation
 shuffle: False
 # (O)   [str]     The reward strategy determines, how the reward is computed. Default is 'dense_makespan_reward'
-reward_strategy:  co2_dense_makespan_reward
+reward_strategy:  co2_makespan_tardiness # co2_dense_makespan_reward, co2_makespan_tardiness
 # (O)   [int]     The reward scale is a float by which the reward is multiplied to increase/decrease the reward signal
                   # strength
-reward_scale: 1
+reward_scale:     1
+
 # STS >>>
-# (O) List[List[int]] percentile CO2 consumption over time step [[percent, up_to_timestep]]
-                  # first value is the last timestep of the bad CO2 is used
-                  # second value is the bad CO2 value in percent
-                  # After the last timestep, it will start with the first ( time step 25 will be weighted with 90% CO2)
-co2_timesteps: [[6, 90], [18, 30], [24, 60], [29, 85], [41, 35], [48, 95]]
+# this is a factor which is set for each parameter in the calculation for the reward
+# 0 - parameter is not considered
+reward_strategy_weight: {'co2': 1, 'makespan': 0, 'tardniess': 1}
+# (O) List[List[int]] CO2e consumption per timestep, [[CO2e/kg, up_to_timestep]]
+                  # After the last timestep, it will start with the first
+                  # every timestep is 1 hour, day 1 = 0 to 23 timesteps, day 2 = 24 to 47, and so on
+co2_timesteps:    [[5, 495.6], [8, 366.5], [12, 279.4],[18, 549.7],[24, 621.3],[29, 645.8],[33, 465.1],[37, 366.4],[42, 617.3],[48, 723.4]]
+# reward is calculated with costs
+co2_costs:        0.03 # €/kg
+tardiness_costs:  5.0 # €/timestep
+makespan_costs:   1.0 # €/gapstep
 # <<< STS
 
 
