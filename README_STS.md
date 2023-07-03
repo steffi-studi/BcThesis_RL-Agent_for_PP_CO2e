@@ -35,6 +35,9 @@ python -m src.data_generator.instance_factory -fp data_generation/fjssp/pyconfig
 ## Start training
 python -m src.agents.train -fp training/dqn/config_job8_task2_tools0.yaml
 
+## Start testing
+python -m src.agents.test -fp testing/dqn/STS_test_config_j20_t1_A.yaml
+
 ## Analyse generated data
 
 `python`<br>
