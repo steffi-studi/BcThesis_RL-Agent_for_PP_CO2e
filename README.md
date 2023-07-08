@@ -1,3 +1,11 @@
+# Intro
+This is the code for the BcThesis "Einsatz von Reinforcement Learning zur Optimierung der Produktionsplanung unter Berücksichtigung von CO2-Einsparungen"
+To verify the conclusion, the Framework SCHLABLY https://github.com/tmdt-buw/schlably is used.
+For this, some functions are modificated, especialliy for the CO2e calculation, the reward and the reporting.
+
+
+
+
 # Schlably
 ​
 Schlably is a Python-Based framework for experiments on scheduling problems with Deep Reinforcement Learning (DRL). 
