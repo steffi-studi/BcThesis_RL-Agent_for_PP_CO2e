@@ -62,6 +62,7 @@ class Env(gym.Env):
         self.co2_costs: float = config.get('co2_costs', 1.0)
         self.tardiness_costs: float = config.get('tardiness_costs', 1.0)
         self.makespan_costs: float = config.get('makespan_costs', 1.0)
+        self.job_id = -1
         # <<< STS
 
         # initialize info which is not reset
@@ -132,6 +133,7 @@ class Env(gym.Env):
         # STS >>>
         # Added a CO2 base value for a task, based on its runtime
         self.co2_consumptions = np.zeros(self.num_all_tasks, dtype=float)
+        self.job_id = -1
         # <<< STS
 
         # clear episode rewards after all training data has passed once. Stores info across runs.
@@ -376,6 +378,9 @@ class Env(gym.Env):
         task.energy_co2_consumption = Env.calculate_co2_consumption(self, task)
         # task.co2_consumption = calculate_co2_consumption(task)
         task.done = True
+        self.job_id = job_id
+        self.tardiness[job_id] = self.get_tardiness()
+        self.co2_consumptions[job_id] = self.get_co2()
 
     # STS
     def calculate_co2_consumption(self, taskco2: Task) -> float:
@@ -550,13 +555,18 @@ class Env(gym.Env):
         """
         Returns the current overall co2 consumption
         """
-        return np.sum(self.co2_consumptions)
+        task = self.tasks[self.job_id]
+        return task.energy_co2_consumption
+        # return np.sum(self.co2_consumptions)
 
     def get_tardiness(self):
         """
         Returns the current overall tardiness
         """
-        return np.sum(self.tardiness)
+        task = self.tasks[self.job_id]
+        t_tardiness = int(np.maximum(0, task.finished - task.deadline))
+        return t_tardiness
+        # return np.sum(self.tardiness)
 
     def log_intermediate_step(self) -> None:
         """
