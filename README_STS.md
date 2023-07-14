@@ -30,7 +30,7 @@ Zugangscode: 60c59a0aed79e3c741c386bcbd8f1bce934e0700
 
 
 ## Start data_generator
-python -m src.data_generator.instance_factory -fp data_generation/fjssp/pyconfig_job8_task2_tools0.yaml
+python -m src.data_generator.instance_factory -fp data_generation/fjssp/config_job8_task2_tools0.yaml
 
 ## Start training
 python -m src.agents.train -fp training/dqn/config_job8_task2_tools0.yaml
