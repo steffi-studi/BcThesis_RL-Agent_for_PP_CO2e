@@ -334,6 +334,7 @@ class DQN:
             current_q_values = T.gather(current_q_values, dim=1, index=actions.long())
 
             # loss computation. MSE also possible
+            #loss = F.mse_loss(current_q_values, target_q_values)
             loss = F.smooth_l1_loss(current_q_values, target_q_values)
             losses.append(loss.item())
 

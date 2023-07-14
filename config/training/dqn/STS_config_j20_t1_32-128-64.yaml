@@ -5,10 +5,10 @@
 # (R)   [string]  RL algorithm you want to use - This template is for dqn
 algorithm: dqn
 # (R)   [string]  Path to the file with generated data that to be used for training
-instances_file: fjssp/config_j20_t1_A.pkl
+instances_file: fjssp/test_config_j20_t1_A_6.pkl
 # (O)   [string]  The finished model is saved under this name. Alternatively set to <automatic>, then it will be
                   # replaced with the current DayMonthYearHourMinute
-saved_model_name: DQN_32-128-64_config_j20_t1_A_1-1-1_test1
+saved_model_name: DQN_32-128-64_config_j20_t1_A_1-1-1_test13
 # (R)   [int]     Seed for all pseudo random generators (random, numpy, torch)
 seed: 0
 # (O)   [bool]    Bool, if the train-test-split of instances should remain the same (1111) and be independent of the
@@ -17,7 +17,7 @@ seed: 0
 overwrite_split_seed: False
 # (R)   [string]  Set an individual description that you can identify this training run  more easily later on.
                   # This will be used in "weights and biases" as well
-config_description: DQN_32-128-64_config_j20_t1_A_1-1-1_test1
+config_description: DQN_32-128-64_config_j20_t1_A_1-1-1_test13
 # (O)   [string]  Set a directory where you want to save the agent model
 experiment_save_path: models
 # (O)   [int]:    wandb mode choose: choose from [0: no wandb, 1: wandb_offline, 2: wandb_online]
@@ -56,14 +56,14 @@ layer:  [32, 128, 64 ]
             # Note, the activation function has to be from the torch.nn module (e.g. ReLU)
 activation: 'ReLU'
 # (R)   [int]     Maximum number of steps that the agent can interact with the env. Limits the training process.
-total_timesteps: 1_000_000
+total_timesteps: 1_500_000
 # (R)   [int]     Maximum number of instances shown to the agent. Limits the training process
-total_instances: 10_000
+total_instances: 15_000
 # (R)   [float]   Range between 0 and 1. How much (percentually) of the generated data will be used for training.
-train_test_split: 0.8
+train_test_split: 0.9
 # (R)   [float]   Range between 0 and 1. How much (percentually) of the remaining data (1-train_test_split) will be
                   # used for training.
-test_validation_split: 0.8
+test_validation_split: 0.5
 # (R)   [int]     Number of environment step calls between intermediate (validation) tests
 intermediate_test_interval: 10_000
 
@@ -95,7 +95,7 @@ reward_strategy_weight: {'co2': 1, 'makespan': 1, 'tardniess': 1}
 co2_timesteps:    [[5, 495.6], [8, 366.5], [12, 279.4],[18, 549.7],[24, 621.3],[29, 645.8],[33, 465.1],[37, 366.4],[42, 617.3],[48, 723.4]]
 # reward is calculated with costs
 co2_costs:        0.03 # €/kg
-tardiness_costs:  5.0 # €/timestep
+tardiness_costs:  15.0 # €/timestep
 makespan_costs:   1.0 # €/gapstep
 # <<< STS
 

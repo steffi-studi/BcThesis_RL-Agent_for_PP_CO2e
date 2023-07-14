@@ -5,9 +5,9 @@
 # (R) [str] Type of your scheduling problem - this template is for the fjssp
 sp_type: fjssp
 # (O)   [string]  Filename under the generated data will be saved (subdirectory is chosen by sp_type)
-instances_file: test_config_j20_t1_A_5.pkl
+instances_file: test_config_j20_t1_A_6.pkl
 # (O)   [int]     Seed for all pseudo random generators (random, numpy, torch)
-seed: 0
+seed: 17
 # (R) [int] Number of jobs to be scheduled
 num_jobs: 20
 # (R) [int] Number of tasks per job to be scheduled (has to be equal to num_machines for jssp)
@@ -19,8 +19,8 @@ num_tools: 3
 # (O) [list[int]] Duration of tasks are sampled uniformly from this list
 runtimes: [2, 3, 4, 6, 7, 8, 10, 12]
 # (R) [int] Number of instances (instances of the scheduling problem) to be generated
-num_instances: 5
+num_instances: 2000
 # (O) [int] Number of parallel processes used to calculate the instances
-num_processes: 5
+num_processes: 100
 # (O) [bool] Save the generated data in a file
 write_to_file: True
